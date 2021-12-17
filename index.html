@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>
 <html>
-<head></head>
+<head>
+  <style>ul { list-style-type:none } li { cursor:pointer }</style>  
+</head>
 <body>
   <ul id='pokelist'></ul>
   <div id='pokedeets'></div>
+  <span id='nxt'>next</span>
 </body>
   <script>
     var pokemons = [];
@@ -40,5 +43,6 @@
        });
     }
     fetchlist(n);
+    document.querySelector('#nxt').addEventListener('click', (e) => fetchlist(n));
   </script>
 </html>
