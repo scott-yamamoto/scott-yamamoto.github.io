@@ -33,7 +33,7 @@
         list.appendChild(li);
       });
     };
-    const fetchlist(url){
+    const fetchlist = (url) => {
        fetch(url).then(r => r.json()).then(({ results, next }) => {
          renderList(results);
          n = next;
