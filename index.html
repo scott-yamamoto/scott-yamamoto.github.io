@@ -2,7 +2,43 @@
 <html>
 <head></head>
 <body>
-  <h1>My Barber's first web page</h1>
-  <p>Hello World!</p>
+  <ul id='pokelist'></ul>
+  <div id='pokedeets'></div>
 </body>
+  <script>
+    var pokemons = [];
+    var n = 'https://pokeapi.co/api/v2/pokemon/';
+    const displayPokeEvtHandler = ({ target }) => {
+      displayPoke(target.dataset.link);
+    };
+    const displayPoke = (link) => {
+      fetch(link).then(r=>r.json()).then(p => {
+        var pd = document.querySelector('#pokedeets');
+        pd.innerHTML = '';
+        var d = document.createElement('div');
+        d.innerHTML = `
+          <span>ID : ${p.id}</span><span>Name: ${p.name}</span>
+        `;
+        pd.appendChild(d);
+      });
+    };
+    const renderList = (pokes) => {
+      var list = document.querySelector('#pokelist');
+      list.innerHTML = '';
+      pokes.forEach(poke => {
+        var li = document.createElement('li');
+        li.innerText = poke.name;
+        li.dataset.link = poke.url;
+        li.onclick = displayPokeEvtHandler;
+        list.appendChild(li);
+      });
+    };
+    const fetchlist(url){
+       fetch(url).then(r => r.json()).then(({ results, next }) => {
+         renderList(results);
+         n = next;
+       });
+    }
+    fetchlist(n);
+  </script>
 </html>
